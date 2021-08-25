@@ -25,6 +25,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import static com.kilomind.screenrecorder.Tracker.ADS;
 import static com.kilomind.screenrecorder.Tracker.GUSHER_DIALOG;
 
+@Deprecated
 public class GusherDialogFragment extends DialogFragment {
 
     public static final String FRAGMENT_TAG = "GusherDialog";

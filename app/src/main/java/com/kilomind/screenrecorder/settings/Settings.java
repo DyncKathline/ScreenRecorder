@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.kilomind.screenrecorder.BuildConfig;
 import com.kilomind.screenrecorder.R;

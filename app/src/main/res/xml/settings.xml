@@ -5,9 +5,6 @@
         android:key="copyrights_statement"
         android:selectable="false" />
     <Preference
-        android:key="donate"
-        android:title="@string/settings_donate" />
-    <Preference
         android:key="no_root_mode"
         android:title="@string/settings_no_root_mode"
         android:summary="@string/settings_no_root_mode_summary" />
@@ -145,15 +142,5 @@
             android:persistent="false"
             android:summary="@string/settings_color_fix_summary"
             android:title="@string/settings_color_fix" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/settings_recommended_apps">
-        <Preference android:key="gusher"
-            android:persistent="false"
-            android:summary="@string/settings_gusher_summary"
-            android:title="@string/settings_gusher_title" />
-        <Preference android:key="mp4fix"
-            android:persistent="false"
-            android:summary="@string/settings_mp4fix_summary"
-            android:title="@string/video_repair_app_name" />
     </PreferenceCategory>
 </PreferenceScreen>

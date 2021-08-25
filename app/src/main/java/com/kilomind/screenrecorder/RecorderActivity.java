@@ -42,13 +42,9 @@ public class RecorderActivity extends AppCompatActivity {
 
             }
         });
-        if (savedInstanceState == null && GusherDialogFragment.shouldShow(this)) {
-            new GusherDialogFragment().show(getFragmentManager(), GusherDialogFragment.FRAGMENT_TAG);
-        } else {
-            Intent intent = new Intent(this, RecorderService.class);
-            intent.setAction(RecorderService.LOUNCHER_ACTION);
-            startService(intent);
-            finish();
-        }
+        Intent intent = new Intent(this, RecorderService.class);
+        intent.setAction(RecorderService.LOUNCHER_ACTION);
+        startService(intent);
+        finish();
     }
 }

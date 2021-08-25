@@ -63,12 +63,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     public static final String KEY_OUTPUT_DIR = "output_dir";
     public static final String KEY_STOP_ON_SCREEN_OFF = "stop_on_screen_off";
     public static final String KEY_COLOR_FIX = "color_fix";
-    public static final String KEY_GUSHER = "gusher";
-    public static final String KEY_MP4FIX = "mp4fix";
     private static final int SELECT_OUTPUT_DIR = 1;
     private static final int SELECT_DOCUMENT_DIR = 2;
     private static final String TAG = "scr_SettingsFragment";
-    private Preference donatePreference;
     private Preference noRootModePreference;
     private PreferenceCategory videoCategory;
     private ListPreference videoConfigPreference;
@@ -94,8 +91,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     private Preference outputDirPreference;
     private CheckBoxPreference stopOnScreenOffPreference;
     private CheckBoxPreference colorFixPreference;
-    private Preference gusherPreference;
-    private Preference mp4fixPreference;
     private Settings settings;
 
     @Override
@@ -110,9 +105,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
         settings = Settings.getInstance();
         settings.registerOnSharedPreferenceChangeListener(this);
-
-        donatePreference = findPreference(KEY_DONATE);
-        donatePreference.setOnPreferenceClickListener(this);
 
         noRootModePreference = findPreference(KEY_NO_ROOT_MODE);
         noRootModePreference.setOnPreferenceClickListener(this);
@@ -186,12 +178,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
         colorFixPreference = (CheckBoxPreference) findPreference(KEY_COLOR_FIX);
         colorFixPreference.setOnPreferenceChangeListener(this);
-
-        gusherPreference = findPreference(KEY_GUSHER);
-        gusherPreference.setOnPreferenceClickListener(this);
-
-        mp4fixPreference = findPreference(KEY_MP4FIX);
-        mp4fixPreference.setOnPreferenceClickListener(this);
 
         settings.getAudioDriver().addInstallListener(this);
         updateEntries();
@@ -886,6 +872,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
             settings.setHideIcon(selected);
         } else if (preference == showTouchesPreference) {
             settings.setShowTouches(selected);
+            showTouchesPreference.setChecked(settings.getShowTouches());
         } else if (preference == showCameraPreference) {
             settings.setShowCamera(selected);
         } else if (preference == cameraAlphaPreference) {
@@ -908,43 +895,11 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         } else if (preference == outputDirPreference) {
             openOutputDirChooser();
             return true;
-        }  else if (preference == donatePreference) {
-            donate();
-            return true;
         } else if (preference == noRootModePreference) {
             enableRoot();
             return true;
-        } else if (preference == gusherPreference) {
-            openRecommendedApp(GusherDialogFragment.GUSHER_PACKAGE_ID);
-            return true;
-        } else if (preference == mp4fixPreference) {
-            openRecommendedApp(RecorderService.VIDEO_REPAIR_PACKAGE);
-            return true;
         }
         return false;
-    }
-
-    private void openRecommendedApp(String packageId) {
-        Activity activity = getActivity();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("market://details?id=" + packageId + "&referrer=utm_source%3DSCR%26utm_medium%3Dsettings%26utm_campaign%3Drecommended_apps"));
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(activity, R.string.rating_play_error, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void donate() {
-        Activity activity = getActivity();
-        if (activity != null) {
-            Intent payPalIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3TDE5GYWQYVL6"));
-            try {
-                activity.startActivity(payPalIntent);
-            } catch (Exception e) {
-                Log.e(TAG, "Error starting donation intent", e);
-            }
-        }
     }
 
     private void enableRoot() {

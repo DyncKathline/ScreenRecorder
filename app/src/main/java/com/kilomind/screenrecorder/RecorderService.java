@@ -157,7 +157,7 @@ public class RecorderService extends Service implements IRecorderService, AudioD
         }
         reinitialize();
 
-        new CheckForUpdatesAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new CheckForUpdatesAsyncTask(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         Log.v(TAG, "Service initialized. version: " + Utils.getAppVersion(this));
     }

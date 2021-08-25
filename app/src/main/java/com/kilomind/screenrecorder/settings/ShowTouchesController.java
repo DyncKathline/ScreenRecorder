@@ -3,13 +3,16 @@ package com.kilomind.screenrecorder.settings;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.provider.Settings.System;
+import android.widget.Toast;
 
 public class ShowTouchesController {
     private final String SHOW_TOUCHES_SETTING = "show_touches";
 
+    private Context context;
     private ContentResolver contentResolver;
 
     public ShowTouchesController(Context context) {
+        this.context = context;
         contentResolver = context.getContentResolver();
     }
 
@@ -20,7 +23,12 @@ public class ShowTouchesController {
 
     public void setShowTouches(boolean show) {
         if (getShowTouches() != show) {
-            System.putInt(contentResolver, SHOW_TOUCHES_SETTING, show ? 1 : 0);
+            try {
+                System.putInt(contentResolver, SHOW_TOUCHES_SETTING, show ? 1 : 0);
+            }catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
