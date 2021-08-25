@@ -111,7 +111,7 @@ public class Settings {
         audioDriver = new AudioDriver(context);
         appVersion = Utils.getAppVersion(context);
         outputDirName = context.getString(R.string.output_dir);
-        defaultOutputDir = new File(Environment.getExternalStorageDirectory(), outputDirName);
+        defaultOutputDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), outputDirName);
         checkAppUpdate();
         checkSystemUpdate();
         rootFlavor = BuildConfig.FLAVOR.equals("root");

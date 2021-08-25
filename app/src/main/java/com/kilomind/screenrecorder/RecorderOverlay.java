@@ -90,17 +90,15 @@ public class RecorderOverlay extends AbstractScreenOverlay {
     @Override
     protected WindowManager.LayoutParams getLayoutParams() {
         if (layoutParams == null) {
-            layoutParams = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-            );
+            layoutParams = new WindowManager.LayoutParams();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             }else {
                 layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
             }
+            layoutParams.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
+                    | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
             layoutParams.format = PixelFormat.TRANSLUCENT;
             layoutParams.setTitle(getContext().getString(R.string.free_app_name));
             layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;

@@ -9,6 +9,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
@@ -45,7 +46,7 @@ public class CameraOverlay extends AbstractScreenOverlay implements TextureView.
     private ProgressBar progressBar;
     private TextView errorText;
     private Camera.Size previewSize;
-    private int displayRotation = -1;
+    private int displayRotation = Surface.ROTATION_0;
     private BroadcastReceiver configChangeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -428,13 +429,15 @@ public class CameraOverlay extends AbstractScreenOverlay implements TextureView.
     protected WindowManager.LayoutParams getLayoutParams() {
         if (layoutParams == null) {
             initializeSize();
-            layoutParams = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN
-                            | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                            | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                            | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
-            );
+            layoutParams = new WindowManager.LayoutParams();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            }else {
+                layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+            }
+            layoutParams.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
+                    | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
             layoutParams.format = PixelFormat.TRANSLUCENT;
             layoutParams.setTitle(getContext().getString(R.string.free_app_name));
             layoutParams.width = width;

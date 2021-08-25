@@ -96,7 +96,7 @@
             android:persistent="false"
             android:title="@string/settings_stereo"
             android:summary="@string/settings_stereo_summary" />
-        <com.iwobanas.screenrecorder.settings.SliderPreference
+        <com.kilomind.screenrecorder.settings.SliderPreference
             android:key="mic_gain"
             android:persistent="false"
             android:title="@string/settings_mic_gain"
@@ -110,7 +110,7 @@
             android:persistent="false"
             android:summary="@string/settings_show_camera_summary"
             android:title="@string/settings_show_camera" />
-        <com.iwobanas.screenrecorder.settings.SliderPreference
+        <com.kilomind.screenrecorder.settings.SliderPreference
             android:dependency="show_camera"
             android:key="camera_alpha"
             android:persistent="false"

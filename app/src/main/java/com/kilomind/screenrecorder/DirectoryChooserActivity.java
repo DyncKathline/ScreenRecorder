@@ -28,7 +28,7 @@ import java.util.Collections;
 
 public class DirectoryChooserActivity extends ListActivity {
     public static final String DEFAULT_DIR_EXTRA = "DEFAULT_DIR_EXTRA";
-    private static final String TAG = "scr_DirectoryChooserActivity";
+    private static final String TAG = DirectoryChooserActivity.class.getSimpleName();
     private static final String DIR = "DIR";
     private File dir;
     private File defaultDir;

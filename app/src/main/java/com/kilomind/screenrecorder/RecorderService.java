@@ -163,7 +163,7 @@ public class RecorderService extends Service implements IRecorderService, AudioD
     }
 
     private void initializeExceptionParser() {
-        List<String> packages = Arrays.asList( "com.iwobanas", "com.google.android.vending");
+        List<String> packages = Arrays.asList( "com.kilomind", "com.google.android.vending");
         ExceptionParser exceptionParser = new AnalyticsExceptionParser(getApplicationContext(), packages);
         EasyTracker.getTracker().setExceptionParser(exceptionParser);
         Thread.UncaughtExceptionHandler uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
@@ -241,24 +241,15 @@ public class RecorderService extends Service implements IRecorderService, AudioD
 
     private File getOutputFile() {
         //TODO: check external storage state
-//        File dir = Settings.getInstance().getOutputDir();
-//        if (!dir.exists()) {
-//            if (!dir.mkdirs()) {
-//                Log.w(TAG, "mkdirs failed " + dir.getAbsolutePath() + " fallback to legacy storage dir");
-//                // fallback to legacy path /sdcard
-//                dir = new File("/sdcard", getString(R.string.output_dir));
-//                if (!dir.exists()) {
-//                    if (!dir.mkdirs()) {
-//                        Log.e(TAG, "mkdirs failed " + dir.getAbsolutePath());
-//                        //TODO: display error message
-//                    }
-//                }
-//            }
-//        }
+        File dir = Settings.getInstance().getOutputDir();
+        if (!dir.exists()) {
+            if (!dir.exists()) {
+                if (!dir.mkdirs()) {
+                    Log.e(TAG, "mkdirs failed " + dir.getAbsolutePath());
+                }
+            }
+        }
         SimpleDateFormat format = new SimpleDateFormat(getString(R.string.file_name_format));
-
-        FileUtil fileUtil = new FileUtil();
-        fileUtil.insertVideo(String.format("%s%s%s","/sdcard", getString(R.string.output_dir), format.format(new Date())), getApplicationContext());
         return new File(dir, format.format(new Date()));
     }
 

@@ -21,7 +21,9 @@ public class SettingsActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         Settings.initialize(this);
         super.onCreate(savedInstanceState);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getActionBar() != null) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         if (savedInstanceState == null) {
             fragment = new SettingsFragment();
